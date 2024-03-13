@@ -1,2 +1,14 @@
-com/example/ddbeyondConfiguration.class
+Item$ItemBuilder.class
+Character.class
+Item.class
 com/example/ddbeyondApplication.class
+Modifier$ModifierBuilder.class
+Modifier.class
+com/example/ddbeyondConfiguration.class
+CharacterClass$CharacterClassBuilder.class
+Defense.class
+Character$CharacterBuilder.class
+Stats.class
+CharacterClass.class
+Stats$StatsBuilder.class
+Defense$DefenseBuilder.class
