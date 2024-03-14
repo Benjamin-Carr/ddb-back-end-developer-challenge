@@ -17,13 +17,13 @@ public enum DamageType {
     PSYCHIC("Psychic"),
     FORCE("Force");
 
-    private final String value;
+    private final String name;
 
-    DamageType(String value) {
-        this.value = value;
+    DamageType(String name) {
+        this.name = name;
     }
 
     public String toString() {
-        return getValue();
+        return getName();
     }
 }

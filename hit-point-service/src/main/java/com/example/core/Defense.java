@@ -1,5 +1,6 @@
 package com.example.core;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,6 +13,8 @@ import lombok.ToString;
 @Builder
 @ToString
 public class Defense {
-    private String type;
-    private String defense;
+    @JsonProperty("type")
+    private String damageType;
+    @JsonProperty("defense")
+    private String damageMultiplier;
 }

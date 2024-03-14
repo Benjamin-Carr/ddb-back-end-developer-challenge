@@ -17,5 +17,6 @@ public class HitPointsResponse {
     int tempHitPointsDelta;
     int currentHitPoints;
     int currentHitPointsDelta;
+    float multiplier;
     int overflow;
 }
