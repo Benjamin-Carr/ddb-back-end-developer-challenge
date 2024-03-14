@@ -10,5 +10,7 @@
 /Users/benjamin/Projects/ddb-back-end-developer-challenge/hit-point-service/src/main/java/com/example/core/Item.java
 /Users/benjamin/Projects/ddb-back-end-developer-challenge/hit-point-service/src/main/java/com/example/core/Modifier.java
 /Users/benjamin/Projects/ddb-back-end-developer-challenge/hit-point-service/src/main/java/com/example/core/Stats.java
+/Users/benjamin/Projects/ddb-back-end-developer-challenge/hit-point-service/src/main/java/com/example/db/CharacterDAO.java
+/Users/benjamin/Projects/ddb-back-end-developer-challenge/hit-point-service/src/main/java/com/example/db/CharacterDaoInMemoryImpl.java
 /Users/benjamin/Projects/ddb-back-end-developer-challenge/hit-point-service/src/main/java/com/example/resources/CharacterResource.java
 /Users/benjamin/Projects/ddb-back-end-developer-challenge/hit-point-service/src/main/java/com/example/services/CharacterService.java

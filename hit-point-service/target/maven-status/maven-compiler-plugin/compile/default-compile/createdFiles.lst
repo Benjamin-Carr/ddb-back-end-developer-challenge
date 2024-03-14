@@ -18,6 +18,8 @@ com/example/core/DamageType.class
 com/example/core/Defense.class
 com/example/core/Item.class
 com/example/core/Defense$DefenseBuilder.class
+com/example/db/CharacterDaoInMemoryImpl.class
+com/example/db/CharacterDAO.class
 com/example/resources/CharacterResource.class
 com/example/DDBeyondApplication.class
 com/example/api/HitPointsResponse$HitPointsResponseBuilder.class
