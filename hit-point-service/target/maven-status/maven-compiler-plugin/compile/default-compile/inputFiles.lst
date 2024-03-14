@@ -1,8 +1,14 @@
+/Users/benjamin/Projects/ddb-back-end-developer-challenge/hit-point-service/src/main/java/com/example/DDBeyondApplication.java
+/Users/benjamin/Projects/ddb-back-end-developer-challenge/hit-point-service/src/main/java/com/example/DDBeyondConfiguration.java
+/Users/benjamin/Projects/ddb-back-end-developer-challenge/hit-point-service/src/main/java/com/example/api/ApiResponse.java
+/Users/benjamin/Projects/ddb-back-end-developer-challenge/hit-point-service/src/main/java/com/example/api/Damage.java
+/Users/benjamin/Projects/ddb-back-end-developer-challenge/hit-point-service/src/main/java/com/example/api/HitPointsResponse.java
 /Users/benjamin/Projects/ddb-back-end-developer-challenge/hit-point-service/src/main/java/com/example/core/Character.java
 /Users/benjamin/Projects/ddb-back-end-developer-challenge/hit-point-service/src/main/java/com/example/core/CharacterClass.java
+/Users/benjamin/Projects/ddb-back-end-developer-challenge/hit-point-service/src/main/java/com/example/core/DamageType.java
 /Users/benjamin/Projects/ddb-back-end-developer-challenge/hit-point-service/src/main/java/com/example/core/Defense.java
 /Users/benjamin/Projects/ddb-back-end-developer-challenge/hit-point-service/src/main/java/com/example/core/Item.java
 /Users/benjamin/Projects/ddb-back-end-developer-challenge/hit-point-service/src/main/java/com/example/core/Modifier.java
 /Users/benjamin/Projects/ddb-back-end-developer-challenge/hit-point-service/src/main/java/com/example/core/Stats.java
-/Users/benjamin/Projects/ddb-back-end-developer-challenge/hit-point-service/src/main/java/com/example/ddbeyondApplication.java
-/Users/benjamin/Projects/ddb-back-end-developer-challenge/hit-point-service/src/main/java/com/example/ddbeyondConfiguration.java
+/Users/benjamin/Projects/ddb-back-end-developer-challenge/hit-point-service/src/main/java/com/example/resources/CharacterResource.java
+/Users/benjamin/Projects/ddb-back-end-developer-challenge/hit-point-service/src/main/java/com/example/services/CharacterService.java

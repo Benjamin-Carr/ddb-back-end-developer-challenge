@@ -11,13 +11,13 @@
     <version>0.0.1</version>
     <packaging>jar</packaging>
 
-    <name>ddbeyond</name>
+    <name>DDBeyond</name>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <dropwizard.version>4.0.7</dropwizard.version>
-        <mainClass>com.example.ddbeyondApplication</mainClass>
+        <mainClass>com.example.DDBeyondApplication</mainClass>
     </properties>
 
     <dependencyManagement>

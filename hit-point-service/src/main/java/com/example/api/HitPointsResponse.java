@@ -1,0 +1,20 @@
+package com.example.api;
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import lombok.ToString;
+
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@ToString
+public class HitPointsResponse {
+    int currentHitPoints;
+    int currentHitPointsDelta;
+    int tempHitPoints;
+    int tempHitPointsDelta;
+    int maxHitPoints;
+}

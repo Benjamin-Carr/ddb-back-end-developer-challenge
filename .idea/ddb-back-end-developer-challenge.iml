@@ -2,8 +2,18 @@
 <module type="JAVA_MODULE" version="4">
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
-    <content url="file://$MODULE_DIR$" />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/hit-point-service/src/main/java" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/hit-point-service/src/main/resources" type="java-resource" />
+      <sourceFolder url="file://$MODULE_DIR$/hit-point-service/src/test/java" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/hit-point-service/src/test/resources" type="java-test-resource" />
+    </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-core:4.0.7" level="project" />
+    <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.30" level="project" />
+    <orderEntry type="library" name="Maven: jakarta.ws.rs:jakarta.ws.rs-api:3.0.0" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.16.1" level="project" />
+    <orderEntry type="library" name="Maven: io.dropwizard:dropwizard-jersey:4.0.7" level="project" />
   </component>
 </module>

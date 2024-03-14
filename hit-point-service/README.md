@@ -1,6 +1,6 @@
-# ddbeyond
+# DDBeyond
 
-How to start the ddbeyond application
+How to start the DDBeyond application
 ---
 
 1. Run `mvn clean install` to build your application
