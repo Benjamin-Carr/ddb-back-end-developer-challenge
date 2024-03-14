@@ -1,6 +1,6 @@
 package com.example.api;
 
-import com.example.core.DamageType;
+import com.example.core.enums.DamageType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

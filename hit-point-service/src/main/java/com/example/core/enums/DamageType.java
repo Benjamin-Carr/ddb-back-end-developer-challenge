@@ -1,4 +1,4 @@
-package com.example.core;
+package com.example.core.enums;
 
 import lombok.Getter;
 @Getter
@@ -19,7 +19,7 @@ public enum DamageType {
 
     private final String value;
 
-    private DamageType(String value) {
+    DamageType(String value) {
         this.value = value;
     }
 
