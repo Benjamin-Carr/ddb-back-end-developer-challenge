@@ -12,9 +12,10 @@ import lombok.ToString;
 @Builder
 @ToString
 public class HitPointsResponse {
-    int currentHitPoints;
-    int currentHitPointsDelta;
+    int maxHitPoints;
     int tempHitPoints;
     int tempHitPointsDelta;
-    int maxHitPoints;
+    int currentHitPoints;
+    int currentHitPointsDelta;
+    int overflow;
 }
