@@ -1,10 +1,8 @@
 package com.example.core;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.Builder;
-import lombok.ToString;
+import com.fasterxml.jackson.annotation.*;
+import lombok.*;
+
 import java.util.List;
 
 @Data
@@ -12,12 +10,20 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 @ToString
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Character {
+    private int id;
     private String name;
     private int level;
-    private int hitPoints;
+    @JsonProperty("hitPoints")
+    private int maxHitPoints;
+    private int currentHitPoints;
+    private int tempHitPoints;
     private List<CharacterClass> classes;
     private Stats stats;
     private List<Item> items;
     private List<Defense> defenses;
+
+    // TODO allow deserialization without altering briv.json to include maxHitPoints
 }
+
