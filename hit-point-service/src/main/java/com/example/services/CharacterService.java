@@ -32,42 +32,77 @@ public class CharacterService {
 
     public HitPointsResponse dealDamage(int characterId, Damage damage) {
         Character character = characterDAO.findCharacterById(characterId);
-
-        HitPointsResponse hitPointsResponse = calculateDamage(character, damage);
-
-        character.setTempHitPoints(hitPointsResponse.getTempHitPoints());
-        character.setCurrentHitPoints(hitPointsResponse.getCurrentHitPoints());
-
+        HitPointsResponse hitPointsResponse = dealDamage(character, damage);
         characterDAO.updateCharacter(character);
-
         return hitPointsResponse;
     }
 
-    private static HitPointsResponse calculateDamage(Character character, Damage damage) {
+    public HitPointsResponse heal(int characterId, int healingAmount) {
+        Character character = characterDAO.findCharacterById(characterId);
+        HitPointsResponse hitPointsResponse = heal(character, healingAmount);
+        characterDAO.updateCharacter(character);
+        return hitPointsResponse;
+    }
+
+    public HitPointsResponse addTempHp(int characterId, int tempHp) {
+        Character character = characterDAO.findCharacterById(characterId);
+        HitPointsResponse hitPointsResponse = addTempHp(character, tempHp);
+        characterDAO.updateCharacter(character);
+        return hitPointsResponse;
+    }
+
+    private static HitPointsResponse dealDamage(Character character, Damage damage) {
         // adjust damage based on defenses
         float multiplier = getDamageMultiplier(character.getDefenses(), damage.getDamageType());
         int damageAmount = (int) Math.floor(damage.getAmount() * multiplier);
 
         // deduct temporary HP
-        final int tempHpOriginal = character.getTempHitPoints();
-        final int tempHpLost = min(damageAmount, tempHpOriginal);
-        final int tempHpRemaining = tempHpOriginal - tempHpLost;
+        final int tempHpLost = min(damageAmount, character.getTempHitPoints());
+        final int tempHpRemaining = character.getTempHitPoints() - tempHpLost;
         damageAmount -= tempHpLost;
 
         // deduct regular HP
-        final int hpOriginal = character.getCurrentHitPoints();
-        final int hpLost = min(damageAmount, hpOriginal);
-        final int hpRemaining = hpOriginal - hpLost;
+        final int hpLost = min(damageAmount, character.getCurrentHitPoints());
+        final int hpRemaining = character.getCurrentHitPoints() - hpLost;
         damageAmount -= hpLost;
 
-        return HitPointsResponse.builder()
-                .maxHitPoints(character.getMaxHitPoints())
-                .tempHitPoints(tempHpRemaining)
+        // update character model
+        character.setTempHitPoints(tempHpRemaining);
+        character.setCurrentHitPoints(hpRemaining);
+
+        return HitPointsResponse.of(character).toBuilder()
                 .tempHitPointsDelta(tempHpLost * -1)
-                .currentHitPoints(hpRemaining)
                 .currentHitPointsDelta(hpLost * -1)
                 .overflow(damageAmount)
                 .multiplier(multiplier)
+                .build();
+    }
+
+    private static HitPointsResponse heal(Character character, int healingAmount) {
+        // add regular HP, without going over max
+        final int hpHealed = min(healingAmount, character.getMaxHitPoints() - character.getCurrentHitPoints());
+        final int hpNew = character.getCurrentHitPoints() + hpHealed;
+        healingAmount -= hpHealed;
+
+        character.setCurrentHitPoints(hpNew);
+
+        return HitPointsResponse.of(character).toBuilder()
+                .currentHitPointsDelta(hpHealed)
+                .overflow(healingAmount)
+                .build();
+    }
+
+    private static HitPointsResponse addTempHp(Character character, int tempHp) {
+        // TODO don't allow negative temp HP
+        // don't use new temp HP value unless it's higher than the existing value
+        tempHp = Math.max(tempHp, character.getTempHitPoints());
+        int tempHpDelta = tempHp - character.getTempHitPoints();
+
+        character.setTempHitPoints(tempHp);
+
+        // TODO should it count as overflow if the new temp HP value isn't used?
+        return HitPointsResponse.of(character).toBuilder()
+                .tempHitPointsDelta(tempHpDelta)
                 .build();
     }
 

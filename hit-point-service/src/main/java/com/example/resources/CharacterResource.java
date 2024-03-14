@@ -12,15 +12,38 @@ import jakarta.ws.rs.core.MediaType;
 public class CharacterResource {
 
     private final CharacterService characterService = new CharacterService();
+
     @POST
     @Path("/damage")
     public ApiResponse<HitPointsResponse> damage(@PathParam("characterId") int characterId, Damage damage) {
         HitPointsResponse data = characterService.dealDamage(characterId, damage);
         return ApiResponse.<HitPointsResponse>builder()
-                .id(12345)
+                .id(characterId)
                 .success(true)
                 .message("Hit points updated. Dealt " + damage.getAmount() + " points of " + damage.getDamageType() + " damage.")
                 .data(data)
+                .build();
+    }
+
+    @POST
+    @Path("/heal")
+    public ApiResponse<HitPointsResponse> heal(@PathParam("characterId") int characterId, Damage damage) {
+        return ApiResponse.<HitPointsResponse>builder()
+                .id(characterId)
+                .success(true)
+                .message("Hit points updated.")
+                .data(characterService.heal(characterId, damage.getAmount()))
+                .build();
+    }
+
+    @POST
+    @Path("/temp-hp")
+    public ApiResponse<HitPointsResponse> addTempHp(@PathParam("characterId") int characterId, Damage damage) {
+        return ApiResponse.<HitPointsResponse>builder()
+                .id(characterId)
+                .success(true)
+                .message("Hit points updated.")
+                .data(characterService.addTempHp(characterId, damage.getAmount()))
                 .build();
     }
 }
