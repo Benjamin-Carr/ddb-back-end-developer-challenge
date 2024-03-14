@@ -10,7 +10,7 @@ import com.example.db.CharacterDAO;
 import com.example.db.CharacterDaoInMemoryImpl;
 import java.util.List;
 
-import static java.lang.Math.min;
+import static java.lang.Math.*;
 
 public class CharacterService {
 
@@ -20,26 +20,9 @@ public class CharacterService {
         characterDAO = CharacterDaoInMemoryImpl.getInstance();
     }
 
-    public HitPointsResponse stub() {
-        return HitPointsResponse.builder()
-                .maxHitPoints(25)
-                .currentHitPoints(20)
-                .currentHitPointsDelta(-5)
-                .tempHitPoints(0)
-                .tempHitPointsDelta(-3)
-                .build();
-    }
-
-    public HitPointsResponse dealDamage(int characterId, Damage damage) {
+    public HitPointsResponse updateHitPoints(int characterId, Damage damage) {
         Character character = characterDAO.findCharacterById(characterId);
-        HitPointsResponse hitPointsResponse = dealDamage(character, damage);
-        characterDAO.updateCharacter(character);
-        return hitPointsResponse;
-    }
-
-    public HitPointsResponse heal(int characterId, int healingAmount) {
-        Character character = characterDAO.findCharacterById(characterId);
-        HitPointsResponse hitPointsResponse = heal(character, healingAmount);
+        HitPointsResponse hitPointsResponse = updateHitPoints(character, damage);
         characterDAO.updateCharacter(character);
         return hitPointsResponse;
     }
@@ -51,45 +34,73 @@ public class CharacterService {
         return hitPointsResponse;
     }
 
-    private static HitPointsResponse dealDamage(Character character, Damage damage) {
+    private static HitPointsResponse updateHitPoints(Character character, Damage damage) {
         // adjust damage based on defenses
-        float multiplier = getDamageMultiplier(character.getDefenses(), damage.getDamageType());
-        int damageAmount = (int) Math.floor(damage.getAmount() * multiplier);
+        float multiplier = getMultiplier(character, damage);
+        int delta = (int) floor(damage.getAmount() * multiplier);
 
-        // deduct temporary HP
-        final int tempHpLost = min(damageAmount, character.getTempHitPoints());
-        final int tempHpRemaining = character.getTempHitPoints() - tempHpLost;
-        damageAmount -= tempHpLost;
-
-        // deduct regular HP
-        final int hpLost = min(damageAmount, character.getCurrentHitPoints());
-        final int hpRemaining = character.getCurrentHitPoints() - hpLost;
-        damageAmount -= hpLost;
-
-        // update character model
-        character.setTempHitPoints(tempHpRemaining);
-        character.setCurrentHitPoints(hpRemaining);
-
-        return HitPointsResponse.of(character).toBuilder()
-                .tempHitPointsDelta(tempHpLost * -1)
-                .currentHitPointsDelta(hpLost * -1)
-                .overflow(damageAmount)
+        return updateHitPoints(character, delta).toBuilder()
                 .multiplier(multiplier)
                 .build();
     }
 
-    private static HitPointsResponse heal(Character character, int healingAmount) {
-        // add regular HP, without going over max
-        final int hpHealed = min(healingAmount, character.getMaxHitPoints() - character.getCurrentHitPoints());
-        final int hpNew = character.getCurrentHitPoints() + hpHealed;
-        healingAmount -= hpHealed;
+    private static HitPointsResponse updateHitPoints(Character character, int delta) {
+        // adjust temporary HP
+        final int tempHpDelta = getTempHitPointsDelta(character.getTempHitPoints(), delta);
+        final int tempHpRemaining = character.getTempHitPoints() + tempHpDelta;
+        delta -= tempHpDelta;
 
+        // adjust regular HP second
+        final int currentHpDelta = getHitPointsDelta(character.getCurrentHitPoints(), character.getMaxHitPoints(), delta);
+        final int hpNew = character.getCurrentHitPoints() + currentHpDelta;
+        delta -= currentHpDelta;
+
+        // update character model
         character.setCurrentHitPoints(hpNew);
+        character.setTempHitPoints(tempHpRemaining);
 
         return HitPointsResponse.of(character).toBuilder()
-                .currentHitPointsDelta(hpHealed)
-                .overflow(healingAmount)
+                .tempHitPointsDelta(tempHpDelta)
+                .currentHitPointsDelta(currentHpDelta)
+                .overflow(delta)
+                .multiplier(1)
                 .build();
+    }
+
+    private static float getMultiplier(Character character, Damage damage) {
+        return damage.getAmount() < 0
+                ? getDamageMultiplier(character.getDefenses(), damage.getDamageType())
+                // no multipliers applied to healing
+                : DamageMultiplier.NORMAL.getMultiplier();
+    }
+
+    // TODO too many repeated words makes this hard to read
+    private static float getDamageMultiplier(List<Defense> defenses, DamageType damageType) {
+        if (defenses == null) {
+            return DamageMultiplier.NORMAL.getMultiplier();
+        }
+        return defenses.stream()
+                .filter(d -> d.getDamageType().equalsIgnoreCase(damageType.getName()))
+                .map(defense -> DamageMultiplier.of(defense.getDamageMultiplier()))
+                .findFirst()   // TODO defend against the case of multiple/conflicting multipliers
+                .orElse(DamageMultiplier.NORMAL)
+                .getMultiplier();
+    }
+
+    private static int getTempHitPointsDelta(int tempHitPoints, int delta) {
+        return delta < 0
+                // can't decrease more than total temp HP
+                ? min(abs(delta), tempHitPoints) * -1
+                // don't alter temp HP when healing
+                : 0;
+    }
+
+    private static int getHitPointsDelta(int currentHitPoints, int maxHitPoints, int delta) {
+        return delta < 0
+                // can't decrease more than current HP
+                ? min(abs(delta), currentHitPoints) * -1
+                // can't heal more HP than character has lost
+                : min(delta, maxHitPoints - currentHitPoints);
     }
 
     private static HitPointsResponse addTempHp(Character character, int tempHp) {
@@ -104,15 +115,5 @@ public class CharacterService {
         return HitPointsResponse.of(character).toBuilder()
                 .tempHitPointsDelta(tempHpDelta)
                 .build();
-    }
-
-    // TODO too many repeated words makes this hard to read
-    private static float getDamageMultiplier(List<Defense> defenses, DamageType damageType) {
-        return defenses.stream()
-                .filter(d -> d.getDamageType().equalsIgnoreCase(damageType.getName()))
-                .map(defense -> DamageMultiplier.of(defense.getDamageMultiplier()))
-                .findFirst()   // TODO defend against the case of multiple/conflicting multipliers
-                .orElse(DamageMultiplier.NORMAL)
-                .getMultiplier();
     }
 }

@@ -16,11 +16,11 @@ public class CharacterResource {
     @POST
     @Path("/damage")
     public ApiResponse<HitPointsResponse> damage(@PathParam("characterId") int characterId, Damage damage) {
-        HitPointsResponse data = characterService.dealDamage(characterId, damage);
+        HitPointsResponse data = characterService.updateHitPoints(characterId, damage);
         return ApiResponse.<HitPointsResponse>builder()
                 .id(characterId)
                 .success(true)
-                .message("Hit points updated. Dealt " + damage.getAmount() + " points of " + damage.getDamageType() + " damage.")
+                .message("Hit points updated.")
                 .data(data)
                 .build();
     }
@@ -32,7 +32,7 @@ public class CharacterResource {
                 .id(characterId)
                 .success(true)
                 .message("Hit points updated.")
-                .data(characterService.heal(characterId, damage.getAmount()))
+                .data(characterService.updateHitPoints(characterId, damage))
                 .build();
     }
 
