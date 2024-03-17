@@ -23,24 +23,8 @@ public class CharacterService {
 
     public HitPointsResponse addTempHp(int characterId, int tempHp) {
         Character character = characterDAO.findCharacterById(characterId);
-        HitPointsResponse hitPointsResponse = addTempHp(character, tempHp);
+        HitPointsResponse hitPointsResponse = TemporaryHitPointCalculator.addTemporaryHitPoints(character, tempHp);
         characterDAO.updateCharacter(character);
         return hitPointsResponse;
-    }
-
-
-
-    private static HitPointsResponse addTempHp(Character character, int tempHp) {
-        // TODO don't allow negative temp HP
-        // don't use new temp HP value unless it's higher than the existing value
-        tempHp = Math.max(tempHp, character.getTempHitPoints());
-        int tempHpDelta = tempHp - character.getTempHitPoints();
-
-        character.setTempHitPoints(tempHp);
-
-        // TODO should it count as overflow if the new temp HP value isn't used?
-        return HitPointsResponse.of(character).toBuilder()
-                .tempHitPointsDelta(tempHpDelta)
-                .build();
     }
 }
