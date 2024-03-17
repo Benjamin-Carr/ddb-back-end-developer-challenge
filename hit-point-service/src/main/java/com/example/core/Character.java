@@ -15,7 +15,7 @@ public class Character {
     private int id;
     private String name;
     private int level;
-    @JsonProperty("hitPoints")
+    @JsonAlias({"hitPoints"})
     private int maxHitPoints;
     private int currentHitPoints;
     private int tempHitPoints;
