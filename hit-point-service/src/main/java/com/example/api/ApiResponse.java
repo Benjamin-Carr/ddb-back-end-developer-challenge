@@ -12,6 +12,7 @@ import lombok.ToString;
 @Builder
 @ToString
 public class ApiResponse<T> {
+    private int code;
     private String message;
     private T data;
 }

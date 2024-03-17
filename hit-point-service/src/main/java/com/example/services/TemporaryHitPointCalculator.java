@@ -20,4 +20,14 @@ public class TemporaryHitPointCalculator {
                 .tempHitPointsDelta(tempHpDelta)
                 .build();
     }
+
+    public static HitPointsResponse removeTemporaryHitPoints(Character character) {
+        int tempHiPointsDelta = character.getTempHitPoints() * -1;
+
+        character.setTempHitPoints(0);
+
+        return HitPointsResponse.of(character).toBuilder()
+                .tempHitPointsDelta(tempHiPointsDelta)
+                .build();
+    }
 }

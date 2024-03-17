@@ -30,6 +30,13 @@ public class CharacterService {
         return hitPointsResponse;
     }
 
+    public HitPointsResponse removeTempHp(int characterId) {
+        Character character = characterDAO.findById(characterId);
+        HitPointsResponse hitPointsResponse = TemporaryHitPointCalculator.removeTemporaryHitPoints(character);
+        characterDAO.update(character);
+        return hitPointsResponse;
+    }
+
     public Character getCharacter(int characterId) {
         return characterDAO.findById(characterId);
     }
