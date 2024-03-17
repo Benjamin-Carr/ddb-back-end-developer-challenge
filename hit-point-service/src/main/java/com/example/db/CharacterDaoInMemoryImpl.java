@@ -1,8 +1,8 @@
 package com.example.db;
 
 import com.example.core.Character;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.File;
+import com.example.services.BrivUtils;
+
 import java.util.HashMap;
 import java.util.Map;
 import lombok.Getter;
@@ -20,8 +20,8 @@ public class CharacterDaoInMemoryImpl implements CharacterDAO {
     private CharacterDaoInMemoryImpl() {
         storage = new HashMap<>();
         try {
-            Character briv = new ObjectMapper().readValue(new File("src/main/resources/briv.json"), Character.class);
-            briv.setId(BRIV_ID);
+            Character briv = BrivUtils.getBrivData();
+            briv.setId(BrivUtils.BRIV_ID);
             storage.put(BRIV_ID, briv);
         } catch (Exception e) {
             System.out.println(e);
