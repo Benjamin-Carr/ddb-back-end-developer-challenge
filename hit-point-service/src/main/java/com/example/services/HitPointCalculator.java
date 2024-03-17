@@ -9,6 +9,7 @@ import com.example.core.enums.DamageType;
 
 import java.util.List;
 
+import static com.example.services.DamageValidator.isValid;
 import static java.lang.Math.*;
 import static java.lang.Math.min;
 
@@ -16,7 +17,7 @@ public class HitPointCalculator {
 
     public static HitPointsResponse updateHitPoints(Character character, HitPointChange hitPointChange) {
         // ensure damage has a type
-        if (hitPointChange.getAmount() < 0 && hitPointChange.getDamageType() == null) {
+        if (!isValid(hitPointChange)) {
             return null;
         }
 
