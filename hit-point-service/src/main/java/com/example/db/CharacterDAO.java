@@ -2,10 +2,13 @@ package com.example.db;
 
 import com.example.core.Character;
 
+import java.util.List;
+
 public interface CharacterDAO {
 
-    void createCharacter(Character character);
-    Character findCharacterById(int id);
-    void updateCharacter(Character character);
-    void deleteCharacterById(int id);
+    void create(Character character);
+    Character findById(int id);
+    List<Character> findAll();
+    void update(Character character);
+    void deleteById(int id);
 }

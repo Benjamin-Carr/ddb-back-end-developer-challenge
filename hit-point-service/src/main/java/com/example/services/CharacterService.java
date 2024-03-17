@@ -15,16 +15,16 @@ public class CharacterService {
     }
 
     public HitPointsResponse updateHitPoints(int characterId, HitPointChange hitPointChange) {
-        Character character = characterDAO.findCharacterById(characterId);
+        Character character = characterDAO.findById(characterId);
         HitPointsResponse hitPointsResponse = HitPointCalculator.updateHitPoints(character, hitPointChange);
-        characterDAO.updateCharacter(character);
+        characterDAO.update(character);
         return hitPointsResponse;
     }
 
     public HitPointsResponse addTempHp(int characterId, int tempHp) {
-        Character character = characterDAO.findCharacterById(characterId);
+        Character character = characterDAO.findById(characterId);
         HitPointsResponse hitPointsResponse = TemporaryHitPointCalculator.addTemporaryHitPoints(character, tempHp);
-        characterDAO.updateCharacter(character);
+        characterDAO.update(character);
         return hitPointsResponse;
     }
 }

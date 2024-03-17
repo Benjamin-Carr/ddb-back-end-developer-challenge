@@ -3,7 +3,9 @@ package com.example.db;
 import com.example.core.Character;
 import com.example.services.BrivUtils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import lombok.Getter;
 
@@ -29,22 +31,27 @@ public class CharacterDaoInMemoryImpl implements CharacterDAO {
     }
     @Override
     // create and update are identical in this implementation
-    public void createCharacter(Character character) {
-        updateCharacter(character);
+    public void create(Character character) {
+        update(character);
     }
 
     @Override
-    public Character findCharacterById(int id) {
+    public Character findById(int id) {
         return storage.get(id);
     }
 
     @Override
-    public void updateCharacter(Character character) {
+    public List<Character> findAll() {
+        return new ArrayList<>(storage.values());
+    }
+
+    @Override
+    public void update(Character character) {
         storage.put(character.getId(), character);
     }
 
     @Override
-    public void deleteCharacterById(int id) {
+    public void deleteById(int id) {
         storage.put(id, null);
     }
 }
