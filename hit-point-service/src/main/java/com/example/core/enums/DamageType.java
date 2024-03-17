@@ -1,6 +1,10 @@
 package com.example.core.enums;
 
 import lombok.Getter;
+
+import java.util.HashMap;
+import java.util.Map;
+
 @Getter
 public enum DamageType {
     BLUDGEONING("Bludgeoning"),
@@ -25,5 +29,21 @@ public enum DamageType {
 
     public String toString() {
         return getName();
+    }
+
+    private static final Map<String, DamageType> map = new HashMap<>();
+
+    static {
+        for (DamageType d : values()) {
+            map.put(d.name.toLowerCase(), d);
+        }
+    }
+
+    public static DamageType of(String name) {
+        DamageType result = map.get(name.toLowerCase());
+        if (result == null) {
+            throw new IllegalArgumentException("Invalid DamageType name: " + name);
+        }
+        return result;
     }
 }

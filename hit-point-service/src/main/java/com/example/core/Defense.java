@@ -1,5 +1,7 @@
 package com.example.core;
 
+import com.example.core.enums.DamageMultiplier;
+import com.example.core.enums.DamageType;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -13,8 +15,8 @@ import lombok.ToString;
 @Builder
 @ToString
 public class Defense {
-    @JsonProperty("type")
-    private String damageType;
     @JsonProperty("defense")
-    private String damageMultiplier;
+    private DamageMultiplier damageMultiplier;
+    @JsonProperty("type")
+    private DamageType damageType;
 }

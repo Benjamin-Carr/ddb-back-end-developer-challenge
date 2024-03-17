@@ -1,7 +1,7 @@
 package com.example.resources;
 
 import com.example.api.ApiResponse;
-import com.example.api.Damage;
+import com.example.api.HitPointChange;
 import com.example.api.HitPointsResponse;
 import com.example.services.CharacterService;
 import jakarta.ws.rs.*;
@@ -15,8 +15,8 @@ public class CharacterResource {
 
     @POST
     @Path("/damage")
-    public ApiResponse<HitPointsResponse> damage(@PathParam("characterId") int characterId, Damage damage) {
-        HitPointsResponse data = characterService.updateHitPoints(characterId, damage);
+    public ApiResponse<HitPointsResponse> damage(@PathParam("characterId") int characterId, HitPointChange hitPointChange) {
+        HitPointsResponse data = characterService.updateHitPoints(characterId, hitPointChange);
         return ApiResponse.<HitPointsResponse>builder()
                 .id(characterId)
                 .success(true)
@@ -27,23 +27,23 @@ public class CharacterResource {
 
     @POST
     @Path("/heal")
-    public ApiResponse<HitPointsResponse> heal(@PathParam("characterId") int characterId, Damage damage) {
+    public ApiResponse<HitPointsResponse> heal(@PathParam("characterId") int characterId, HitPointChange hitPointChange) {
         return ApiResponse.<HitPointsResponse>builder()
                 .id(characterId)
                 .success(true)
                 .message("Hit points updated.")
-                .data(characterService.updateHitPoints(characterId, damage))
+                .data(characterService.updateHitPoints(characterId, hitPointChange))
                 .build();
     }
 
     @POST
     @Path("/temp-hp")
-    public ApiResponse<HitPointsResponse> addTempHp(@PathParam("characterId") int characterId, Damage damage) {
+    public ApiResponse<HitPointsResponse> addTempHp(@PathParam("characterId") int characterId, HitPointChange hitPointChange) {
         return ApiResponse.<HitPointsResponse>builder()
                 .id(characterId)
                 .success(true)
                 .message("Hit points updated.")
-                .data(characterService.addTempHp(characterId, damage.getAmount()))
+                .data(characterService.addTempHp(characterId, hitPointChange.getAmount()))
                 .build();
     }
 }

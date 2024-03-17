@@ -31,7 +31,7 @@ public enum DamageMultiplier {
     public static DamageMultiplier of(String name) {
         DamageMultiplier result = map.get(name);
         if (result == null) {
-            throw new IllegalArgumentException("Invalid category name: " + name);
+            throw new IllegalArgumentException("Invalid DamageMultiplier name: " + name);
         }
         return result;
     }

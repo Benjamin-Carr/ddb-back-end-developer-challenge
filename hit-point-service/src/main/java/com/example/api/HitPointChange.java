@@ -12,7 +12,11 @@ import lombok.ToString;
 @AllArgsConstructor
 @Builder
 @ToString
-public class Damage {
+public class HitPointChange {
     private int amount;
     private DamageType damageType;
+
+    public HitPointChange(int amount) {
+        this.amount = amount;
+    }
 }
