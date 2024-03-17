@@ -12,8 +12,6 @@ import lombok.ToString;
 @Builder
 @ToString
 public class ApiResponse<T> {
-    private long id;
-    private boolean success;
     private String message;
     private T data;
 }
