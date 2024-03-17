@@ -6,6 +6,8 @@ import com.example.core.Character;
 import com.example.db.CharacterDAO;
 import com.example.db.CharacterDaoInMemoryImpl;
 
+import java.util.List;
+
 public class CharacterService {
 
     private final CharacterDAO characterDAO;
@@ -26,5 +28,13 @@ public class CharacterService {
         HitPointsResponse hitPointsResponse = TemporaryHitPointCalculator.addTemporaryHitPoints(character, tempHp);
         characterDAO.update(character);
         return hitPointsResponse;
+    }
+
+    public Character getCharacter(int characterId) {
+        return characterDAO.findById(characterId);
+    }
+
+    public List<Character> getAllCharacters() {
+        return characterDAO.findAll();
     }
 }
