@@ -17,6 +17,7 @@ import static com.example.core.enums.DamageType.*;
 import static com.example.services.HitPointCalculator.updateHitPoints;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 @DisplayName("HitPointCalculator")
 class HitPointCalculatorTest {
@@ -34,6 +35,11 @@ class HitPointCalculatorTest {
         int tempHitPoints = 0; // also used for expectedTempHitPoints
         int expectedOverflow = 0;
         updateHitPointsTest(hitPointChangeAmount, maxHitPoints, currentHitPoints, tempHitPoints, expectedHitPoints, tempHitPoints, expectedOverflow);
+    }
+
+    @Test
+    void should_require_damage_to_have_a_type() {
+        assertNull(updateHitPoints(new Character(), new HitPointChange(-1, null)));
     }
 
     @Nested

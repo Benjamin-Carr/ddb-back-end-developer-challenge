@@ -15,6 +15,11 @@ import static java.lang.Math.min;
 public class HitPointCalculator {
 
     public static HitPointsResponse updateHitPoints(Character character, HitPointChange hitPointChange) {
+        // ensure damage has a type
+        if (hitPointChange.getAmount() < 0 && hitPointChange.getDamageType() == null) {
+            return null;
+        }
+
         // adjust damage based on defenses
         float multiplier = getMultiplier(character, hitPointChange);
         int delta = (int) floor(hitPointChange.getAmount() * multiplier);
