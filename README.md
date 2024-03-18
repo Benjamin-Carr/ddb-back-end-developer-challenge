@@ -1,11 +1,20 @@
-# DDB Back End Developer Challenge
+# D&D Beyond Character Service
+Manage hit points and damage for Dungeons and Dragons characters.
 
-# Overview
-This project is a showcase of technical skills for the D&D Beyond back-end developer challenge. 
+# Project Description
+The purpose of this project is to showcase my technical skills for the D&D Beyond back-end developer coding challenge.
 
-The goal was to create an API for managing a player character's Hit Points (HP) within our game. The API enables clients to perform various operations related to HP, including dealing damage of different types, considering character resistances and immunities, healing, and adding temporary Hit Points. 
+The service is built so that additional character-related functionality can easily be added, but at the moment the main focus is on hit points and damage.
 
-For the purposes of this task, the service interacts with HP data provided in the briv.json file and persists throughout the application's lifetime.
+Technical highlights include:
+- Low code duplication
+  - Healing and damage using the same function in the service layer
+  - Immunity, resistance, and vulnerability are elegantly handled with enums
+- Testable code
+  - Business logic is extracted into separate classes
+- High quality tests
+  - Tests go beyond basic coverage and are based on use cases
+  - Tests output is organized, formatted, and nested to be human-readable
 
 # Running the Code
 ## Prerequisites
