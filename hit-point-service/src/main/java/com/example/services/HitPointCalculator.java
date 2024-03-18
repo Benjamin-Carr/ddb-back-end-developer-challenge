@@ -15,6 +15,15 @@ import static java.lang.Math.min;
 
 public class HitPointCalculator {
 
+    /**
+     * Updates the character's hit points
+     * @param character The character whose hit points will be updated.
+     * @param hitPointChange Contains the amount of hit points to add or subtract, and a damage type.
+     *                       A negative amount deals damage, and a positive amount heals.
+     *                       The damage type is only used when dealing damage.
+     * @return a summary of the changes
+     */
+
     public static HitPointsResponse updateHitPoints(Character character, HitPointChange hitPointChange) {
         // ensure damage has a type
         if (!isValid(hitPointChange)) {
@@ -47,6 +56,7 @@ public class HitPointCalculator {
                 .build();
     }
 
+    // How much the hit points change needs to be multiplied by based on the character's defenses and whether it's healing or damage
     private static float getMultiplier(Character character, HitPointChange hitPointChange) {
         return hitPointChange.getAmount() < 0
                 ? getDamageMultiplier(character.getDefenses(), hitPointChange.getDamageType())
@@ -54,7 +64,7 @@ public class HitPointCalculator {
                 : DamageMultiplier.NORMAL.getMultiplier();
     }
 
-    // TODO too many repeated words makes this hard to read
+    // Get the appropriate damage multiplier based on the character's defenses
     private static float getDamageMultiplier(List<Defense> defenses, DamageType damageType) {
         if (defenses == null) {
             return DamageMultiplier.NORMAL.getMultiplier();
