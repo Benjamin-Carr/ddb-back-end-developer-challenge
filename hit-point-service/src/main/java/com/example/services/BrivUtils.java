@@ -12,8 +12,6 @@ public class BrivUtils {
 
     private static final Logger logger = LoggerFactory.getLogger(BrivUtils.class);
 
-    public static final int BRIV_ID = 1;
-
     public static Character getBrivData() {
         try {
             ObjectMapper objectMapper = new ObjectMapper().enable(MapperFeature.ACCEPT_CASE_INSENSITIVE_ENUMS);
