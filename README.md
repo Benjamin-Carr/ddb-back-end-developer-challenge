@@ -73,11 +73,15 @@ Oracle does provide an [official installation guide](https://maven.apache.org/in
     {"code":404,"message":"HTTP 404 Not Found"}
     ```
    
-# Running Tests
-In the `/hit-point-service` directory run:
-```bash
-java -jar target/hit-point-service-0.0.1.jar server config.yml
-```
+# Tests
+1. Navigate to the `hit-point-service` directory
+2. Run the tests
+    ```bash
+    java -jar target/hit-point-service-0.0.1.jar server config.yml
+    ```
+The output will be organized, formatted, and nested to make it human-readable.
+
+![img.png](img.png)
 
 # Documentation
 
