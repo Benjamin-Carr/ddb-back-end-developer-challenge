@@ -68,10 +68,42 @@ java -jar target/hit-point-service-0.0.1.jar server config.yml
 - **Request Body**:
   ```json
   {
-    "damageType": "Fire",
-    "amount": 5
+    "damageType": "necrotic",
+    "amount": -10 // must be negative
   }
   ```
+  <details>
+  <summary><b>Example curl</b></summary>
+
+  ```bash
+  curl --location 'localhost:8080/characters/briv/damage' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "amount": -10,
+  "damageType": "necrotic"
+  }'
+  ```
+  </details>
+  <details>
+  <summary><b>Example response body</b></summary>
+  <i>Assuming that briv had 25/25 HP</i>
+
+  ```json
+  {
+      "code": 200,
+      "message": "Hit points updated.",
+      "data": {
+          "maxHitPoints": 25,
+          "tempHitPoints": 0,
+          "tempHitPointsDelta": 0,
+          "currentHitPoints": 15,
+          "currentHitPointsDelta": -10,
+          "multiplier": 1.0,
+          "overflow": 0
+      }
+  }
+  ```
+  </details>
 ### Heal
 
 - **URL**: `/characters/{id}/heal`
@@ -80,9 +112,41 @@ java -jar target/hit-point-service-0.0.1.jar server config.yml
 - **Request Body**:
   ```json
   {
-    "amount": 5
+    "amount": 8 // must be positive
   }
   ```
+    <details>
+  <summary><b>Example curl</b></summary>
+
+  ```bash
+  curl --location 'localhost:8080/characters/briv/heal' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "amount": 8
+  }'
+  ```
+  </details>
+  <details>
+  <summary><b>Example response body</b></summary>
+  <i>Assuming that briv had 15/25 HP</i>
+  
+  ```json
+  {
+      "code": 200,
+      "message": "Hit points updated.",
+      "data": {
+          "maxHitPoints": 25,
+          "tempHitPoints": 0,
+          "tempHitPointsDelta": 0,
+          "currentHitPoints": 23,
+          "currentHitPointsDelta": 8,
+          "multiplier": 1.0,
+          "overflow": 0
+      }
+  }
+  ```
+</details>
+
 ### Add Temporary Hit Points
 
 - **URL**: `/characters/{id}/temp-hp`
@@ -94,8 +158,68 @@ java -jar target/hit-point-service-0.0.1.jar server config.yml
     "amount": 5
   }
   ```
+    <details>
+  <summary><b>Example curl</b></summary>
+
+  ```bash
+  curl --location 'localhost:8080/characters/briv/temp-hp' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  "amount": 5
+  }'
+  ```
+  </details>
+  <details>
+  <summary><b>Example response body</b></summary>
+  <i>Assuming that briv had 23/25 HP and no temp HP</i>
+
+  ```json
+  {
+      "code": 200,
+      "message": "Hit points updated.",
+      "data": {
+          "maxHitPoints": 25,
+          "tempHitPoints": 5,
+          "tempHitPointsDelta": 5,
+          "currentHitPoints": 23,
+          "currentHitPointsDelta": 0,
+          "multiplier": 1.0,
+          "overflow": 0
+      }
+  }
+  ```
+</details>
+
 ### Remove Temporary Hit Points
 
 - **URL**: `/characters/{id}/temp-hp`
 - **Method**: `DELETE`
 - **Description**: Removes all temporary hit points from the specified player character.
+    <details>
+  <summary><b>Example curl</b></summary>
+
+  ```bash
+  curl --location --request DELETE 'localhost:8080/characters/briv/temp-hp' \
+  --header 'Content-Type: application/json'
+  ```
+  </details>
+  <details>
+  <summary><b>Example response body</b></summary>
+  <i>Assuming that briv had 23/25 HP and 5 temp HP</i>
+
+  ```json
+  {
+      "code": 200,
+      "message": "Hit points updated.",
+      "data": {
+          "maxHitPoints": 25,
+          "tempHitPoints": 0,
+          "tempHitPointsDelta": -5,
+          "currentHitPoints": 23,
+          "currentHitPointsDelta": 0,
+          "multiplier": 1.0,
+          "overflow": 0
+      }
+  }
+  ```
+</details>
