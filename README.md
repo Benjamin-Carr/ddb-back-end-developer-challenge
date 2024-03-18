@@ -48,14 +48,32 @@ OS name: "mac os x", version: "13.6.3", arch: "x86_64", family: "mac"
 Oracle does provide an [official installation guide](https://maven.apache.org/install.html), but I found the one from [Baeldung](https://www.baeldung.com/install-maven-on-windows-linux-mac) to be more helpful.
 
 # Installation
-```bash
-cd hit-point-service
-mvn package
-java -jar target/hit-point-service-0.0.1.jar server config.yml
-```
-The service will be running on `localhost:8080`
-
-## Running Tests
+1. Clone the repository
+    ```bash
+    git clone https://github.com/Benjamin-Carr/ddb-back-end-developer-challenge.git
+    ```
+2. Navigate to the `hit-point-service` directory
+    ```bash
+    cd ddb-back-end-developer-challenge/hit-point-service
+    ```
+3. Build the application
+    ```bash
+    mvn clean package
+    ```
+4. Start the application
+    ```bash
+    java -jar target/hit-point-service-0.0.1.jar server config.yml
+    ```
+5. Check that the application is running
+    ```bash
+    curl --location 'localhost:8080'
+    ```
+   Since that API is not defined should response with
+    ```json
+    {"code":404,"message":"HTTP 404 Not Found"}
+    ```
+   
+# Running Tests
 In the `/hit-point-service` directory run:
 ```bash
 java -jar target/hit-point-service-0.0.1.jar server config.yml
