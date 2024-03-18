@@ -113,10 +113,12 @@ The output will be organized, formatted, and nested to make it human-readable.
 - **Method**: `POST`
 - **Description**: Deals damage to the specified player character.
 - **Request Body**:
+
+  *amount must be negative*
   ```json
   {
     "damageType": "necrotic",
-    "amount": -10 // must be negative
+    "amount": -10
   }
   ```
   <details>
@@ -157,9 +159,11 @@ The output will be organized, formatted, and nested to make it human-readable.
 - **Method**: `POST`
 - **Description**: Heals the specified player character.
 - **Request Body**:
+
+  *amount must be positive*
   ```json
   {
-    "amount": 8 // must be positive
+    "amount": 8
   }
   ```
     <details>
@@ -200,6 +204,8 @@ The output will be organized, formatted, and nested to make it human-readable.
 - **Method**: `POST`
 - **Description**: Adds temporary hit points to the specified player character.
 - **Request Body**:
+
+  *amount must be positive*
   ```json
   {
     "amount": 5
