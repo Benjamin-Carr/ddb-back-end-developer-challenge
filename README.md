@@ -16,13 +16,38 @@ Technical highlights include:
   - Tests go beyond basic coverage and are based on use cases
   - Tests output is organized, formatted, and nested to be human-readable
 
-# Running the Code
-## Prerequisites
-Install the following on your machine before you begin:
-- Java
-- Maven
+# Requirements
+## Java
+This project was built using Java 21.0.2 and has not been tested on earlier versions. 
 
-## Starting the Service
+You can check if it's installed and added to your PATH with `java --version`
+
+```
+java 21.0.2 2024-01-16 LTS
+Java(TM) SE Runtime Environment (build 21.0.2+13-LTS-58)
+Java HotSpot(TM) 64-Bit Server VM (build 21.0.2+13-LTS-58, mixed mode, sharing)
+```
+
+[Download](https://www.oracle.com/java/technologies/downloads) and [installation guide](https://docs.oracle.com/en/java/javase/21/install/overview-jdk-installation.html) from Oracle.
+
+## Maven
+This project was built using Maven 3.9.6 and has not been tested on earlier versions.
+
+You can check if it's installed and added to your PATH with `mvn --version`
+
+```
+Apache Maven 3.9.6 (bc0240f3c744dd6b6ec2920b3cd08dcc295161ae)
+Maven home: /Users/benjamin/infrastructure/apache-maven-3.9.6
+Java version: 21.0.2, vendor: Oracle Corporation, runtime: /Library/Java/JavaVirtualMachines/jdk-21.jdk/Contents/Home
+Default locale: en_US, platform encoding: UTF-8
+OS name: "mac os x", version: "13.6.3", arch: "x86_64", family: "mac"
+```
+
+[Download](https://maven.apache.org/download.cgi) from Oracle.
+
+Oracle does provide an [official installation guide](https://maven.apache.org/install.html), but I found the one from [Baeldung](https://www.baeldung.com/install-maven-on-windows-linux-mac) to be more helpful.
+
+# Installation
 ```bash
 cd hit-point-service
 mvn package
