@@ -16,28 +16,28 @@ public class CharacterService {
         characterDAO = CharacterDaoInMemoryImpl.getInstance();
     }
 
-    public HitPointsResponse updateHitPoints(int characterId, HitPointChange hitPointChange) {
+    public HitPointsResponse updateHitPoints(String characterId, HitPointChange hitPointChange) {
         Character character = characterDAO.findById(characterId);
         HitPointsResponse hitPointsResponse = HitPointCalculator.updateHitPoints(character, hitPointChange);
         characterDAO.update(character);
         return hitPointsResponse;
     }
 
-    public HitPointsResponse addTempHp(int characterId, int tempHp) {
+    public HitPointsResponse addTempHp(String characterId, int tempHp) {
         Character character = characterDAO.findById(characterId);
         HitPointsResponse hitPointsResponse = TemporaryHitPointCalculator.addTemporaryHitPoints(character, tempHp);
         characterDAO.update(character);
         return hitPointsResponse;
     }
 
-    public HitPointsResponse removeTempHp(int characterId) {
+    public HitPointsResponse removeTempHp(String characterId) {
         Character character = characterDAO.findById(characterId);
         HitPointsResponse hitPointsResponse = TemporaryHitPointCalculator.removeTemporaryHitPoints(character);
         characterDAO.update(character);
         return hitPointsResponse;
     }
 
-    public Character getCharacter(int characterId) {
+    public Character getCharacter(String characterId) {
         return characterDAO.findById(characterId);
     }
 

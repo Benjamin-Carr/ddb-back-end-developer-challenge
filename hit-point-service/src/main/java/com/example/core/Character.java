@@ -12,7 +12,6 @@ import java.util.List;
 @ToString
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Character {
-    private int id;
     private String name;
     private int level;
     @JsonAlias({"hitPoints"})

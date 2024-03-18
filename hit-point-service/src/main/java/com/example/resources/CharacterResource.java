@@ -27,7 +27,7 @@ public class CharacterResource {
 
     @GET
     @Path("/{characterId}")
-    public ApiResponse<Character> getCharacter(@PathParam("characterId") int characterId) {
+    public ApiResponse<Character> getCharacter(@PathParam("characterId") String characterId) {
         return ApiResponse.<Character>builder()
                 .code(200)
                 .message("Character retrieved.")
@@ -37,7 +37,7 @@ public class CharacterResource {
 
     @POST
     @Path("/{characterId}/damage")
-    public ApiResponse<HitPointsResponse> damage(@PathParam("characterId") int characterId, HitPointChange hitPointChange) {
+    public ApiResponse<HitPointsResponse> damage(@PathParam("characterId") String characterId, HitPointChange hitPointChange) {
         if (hitPointChange.getAmount() >= 0) {
             throw new WebApplicationException("amount must be negative", 422);
         }
@@ -53,7 +53,7 @@ public class CharacterResource {
 
     @POST
     @Path("/{characterId}/heal")
-    public ApiResponse<HitPointsResponse> heal(@PathParam("characterId") int characterId, HitPointChange hitPointChange) {
+    public ApiResponse<HitPointsResponse> heal(@PathParam("characterId") String characterId, HitPointChange hitPointChange) {
         if (hitPointChange.getAmount() <= 0) {
             throw new WebApplicationException("amount must be positive", 422);
         }
@@ -66,7 +66,7 @@ public class CharacterResource {
 
     @POST
     @Path("/{characterId}/temp-hp")
-    public ApiResponse<HitPointsResponse> addTempHp(@PathParam("characterId") int characterId, HitPointChange hitPointChange) {
+    public ApiResponse<HitPointsResponse> addTempHp(@PathParam("characterId") String characterId, HitPointChange hitPointChange) {
         if (hitPointChange.getAmount() <= 0) {
             throw new WebApplicationException("amount must be positive", 422);
         }
@@ -79,7 +79,7 @@ public class CharacterResource {
 
     @DELETE
     @Path("/{characterId}/temp-hp")
-    public ApiResponse<HitPointsResponse> removeTempHp(@PathParam("characterId") int characterId) {
+    public ApiResponse<HitPointsResponse> removeTempHp(@PathParam("characterId") String characterId) {
         return ApiResponse.<HitPointsResponse>builder()
                 .code(200)
                 .message("Hit points updated.")

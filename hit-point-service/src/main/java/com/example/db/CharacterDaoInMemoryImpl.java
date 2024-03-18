@@ -14,20 +14,14 @@ public class CharacterDaoInMemoryImpl implements CharacterDAO {
     @Getter
     private static final CharacterDaoInMemoryImpl instance = new CharacterDaoInMemoryImpl();
 
-    private static final int BRIV_ID = 1;
+    private static final String BRIV_ID = "briv";
 
-    private final Map<Integer, Character> storage;
+    private final Map<String, Character> storage;
 
     // Private constructor to prevent instantiation from other classes
     private CharacterDaoInMemoryImpl() {
         storage = new HashMap<>();
-        try {
-            Character briv = BrivUtils.getBrivData();
-            briv.setId(BrivUtils.BRIV_ID);
-            storage.put(BRIV_ID, briv);
-        } catch (Exception e) {
-            System.out.println(e);
-        }
+        storage.put(BRIV_ID, BrivUtils.getBrivData());
     }
     @Override
     // create and update are identical in this implementation
@@ -36,7 +30,7 @@ public class CharacterDaoInMemoryImpl implements CharacterDAO {
     }
 
     @Override
-    public Character findById(int id) {
+    public Character findById(String id) {
         return storage.get(id);
     }
 
@@ -47,11 +41,11 @@ public class CharacterDaoInMemoryImpl implements CharacterDAO {
 
     @Override
     public void update(Character character) {
-        storage.put(character.getId(), character);
+        storage.put(character.getName(), character);
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(String id) {
         storage.put(id, null);
     }
 }

@@ -7,8 +7,8 @@ import java.util.List;
 public interface CharacterDAO {
 
     void create(Character character);
-    Character findById(int id);
+    Character findById(String id);
     List<Character> findAll();
     void update(Character character);
-    void deleteById(int id);
+    void deleteById(String id);
 }
